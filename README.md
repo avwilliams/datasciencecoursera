@@ -1,9 +1,3 @@
-datasciencecoursera
-===================
-
-Repo for Johns Hopkins University Data Science Course on Coursera
-
-
 # Getting and Cleaning Data Week 3 Project
 
 ## Project Description
@@ -19,21 +13,35 @@ for each activity and each subject.
 #### With the above requirement my object were to:
 
 1. First, inspect the data with GNU/Linux command line tools
-+ See 003-projdata-inspect.md
+
+ [See 003-projdata-inspect.md](https://github.com/avwilliams/datasciencecoursera/blob/master/003-projdata-inspect.md)
 
 2. Tidy data preparation and explore the data and it's information files in R/Rstudio
-+ See 003-projdata-tidy-prep.md
+
+ [See 003-projdata-tidy-prep.md](https://github.com/avwilliams/datasciencecoursera/blob/master/003-projdata-tidy-prep.md)
 
 3. Extract and merge required data variable
 
 4. Extract data for column names to rename variables
 
 5. Add additional columns and data to make data and results identifiable.
-+ See 003-projdata-tidy-prep.md
+
+ [See 003-projdata-tidy-prep.md](https://github.com/avwilliams/datasciencecoursera/blob/master/003-projdata-tidy-prep.md)
 
 6. tidy data
 
+### Project Files
+[Data Inspection](https://github.com/avwilliams/datasciencecoursera/blob/master/003-projdata-inspect.md)
 
+[Data Exploration](https://github.com/avwilliams/datasciencecoursera/blob/master/003-projdata-tidy-prep.md)
+
+[Project](https://github.com/avwilliams/datasciencecoursera/blob/master/003-project-final.md)
+
+[Code Book](https://github.com/avwilliams/datasciencecoursera/blob/master/003-project-code-book.md)
+[Code](https://github.com/avwilliams/datasciencecoursera/blob/master/run_analysis.R)
+
+
+### Note
 Time permitting to meet the deadline, i did accomplished most but not all of the task.
 
 Per the dead line i got up to a semi tidy data frame of the train and test data set
