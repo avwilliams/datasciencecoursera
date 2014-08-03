@@ -49,16 +49,21 @@ Per the dead line i got up to a semi tidy data frame of the train and test data 
 #### Not accomplished yet:
 Column with with actual activities
 
-#### Additional Column and data for subsetting data:
-prefix
-measurement/variable
+#### Additional feature Column and data for subsetting data:
+domains
+
+measurement
 
 direction
 
-#### Finally:
-melt or ddply the merged train/test set data frame to make it long instead of wide.
+#### Final Update
+Finally came to a point of completion for a final tidy data set using rbind().
+Since there were no clear dimensions for the outcome of the data frame, my data frame is 10299 obs of 69 variables, with tidy column names for subject, activity, train and test set signals.
+I added ab additional column (data_set) to be able to distinguish between train and test data rows.
 
 ### Notes
+maybe melt or ddply the merged train/test set data frame to make it long instead of wide.
+
 I did try to melt and ddply my current merged data frame, but my laptop can't seem
 to handle it. It is currently frozen and i may have to warm boot it to make it usable
 again.
@@ -66,4 +71,3 @@ again.
 There is an issue with RStudio, when i tell it to stop processing, it prompts me to
 kill the R session. I tell it yes but it does not kill the rsession.
 
-### Update

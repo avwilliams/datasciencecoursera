@@ -7,16 +7,36 @@
 # 5. Creates a second, independent tidy data set with the average of each variable
 # for each activity and each subject.
 
+setwd("~/Workspace/DataAnalytics/Coursera-DS")
+rm(list=ls())
+
 ### Libraries
+library(tidyr)
 library(reshape2)
 library(stringr)
 library(plyr)
+library(dplyr)
 library(data.table)
+library(Hmisc)
+library(foreach)
 
 ### Option
 options(stringsAsFactors = FALSE)
 
-### Data files
+###### Data files
+### Features and Activities data
+# source("003-getting-cleaning-data/003-projdata-features-tidy.R")
+
+### Features Data
+featureData <- read.csv(
+  "/home/jawara/Workspace/DataAnalytics/Coursera-DS/003-projdata/UCI-HAR-Data/features.csv",
+  header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
+### Activity Data
+activityFile <- read.table(
+  "/home/jawara/Workspace/DataAnalytics/Coursera-DS/003-projdata/UCI-HAR-Data/activity_labels.txt")
+activityData <- data.frame(activityID = c(1:6), activity = gsub("_", " ", activityFile$V2))
+
 # Path to training data
 train.data.path <-
   list.files("/home/jawara/Workspace/DataAnalytics/Coursera-DS/003-projdata/UCI-HAR-Data/train",
@@ -24,25 +44,88 @@ train.data.path <-
 
 # train data path list
 train.data.list <- lapply(train.data.path, read.table)
-class(train.data.list)
-#str(train.data.list)
 
-# Training set: 561 columns - see features.txt
-
-# Subject: that performed an Activity: 1 - 30
-
-# Training labels: - activity name: 1 - 6
-
+# Subject: subject_train.txt - that performed an Activity: 1 - 30
+# Training set: X_train.txt - 561 columns - see features.txt for column names
+# Training labels/ Activity Codes: y_train.txt - activity name: 1 - 6
 
 # train data list data frame
-train.data.list.df <- as.data.frame(train.data.list)
-is.data.frame(train.data.list.df)
+# Subject
+train.data.list.su.df <- as.data.frame(train.data.list[1])
 
-# rename train data list column 564 and 563
-names(train.data.list.df)[c(562,563)] <- c("trsubject", "tractivity")
+# Activity ID
+train.data.list.ac.df <- as.data.frame(train.data.list[3])
 
+# Training set
+train.data.list.df <- as.data.frame(train.data.list[2])
+
+# Columns of interest
+
+### feature - columns - mean
+# featureData
+mn <- subset(featureData, measurement == "mean" ,
+             select = c(domain, signal, measurement, direction))
+mn <- cbind(mnID = as.integer(rownames(mn)), mn)
+
+mn.names <- paste(mn$domain, mn$signal, mn$measurement, mn$direction, sep = "_")
+mn.names <- gsub("mean_", "mean", mn.names)
+
+### feature - columns - std
+st <- subset(featureData, measurement == "std" ,
+             c(domain, signal, measurement, direction))
+st <- cbind(stID = as.integer(rownames(st)), st)
+
+st.names <- paste(st$domain,st$signal,st$measurement, st$direction, sep = "_")
+st.names <- gsub("std_", "std", st.names)
+
+###### Subsetting/extracting training set df - mean, std, subject
+### subject - column
+names(train.data.list.su.df)[1] <- "subjectID"
+
+### activityID - column
+names(train.data.list.ac.df)[1] <- "activityID"
+
+###### train set column names
+### mean - columns
+names(train.data.list.df)[mn$mnID] <- c(mn.names)
+
+### std columns
+names(train.data.list.df)[st$stID] <- c(st.names)
+
+###### Train set data frames
+mn.st <- c(mn$mnID, st$stID)
+
+# train set mean and std
+train.dl.mn.st.df <- train.data.list.df[c(mn.st)]
+
+###### train - Activity labels
+### train Activity code and names
+# activity columns from activityID
+# activityData
+
+activity.train <- data.frame(activity = train.data.list.ac.df$activityID)
 
 ###
+actID.from <- activityData$activityID
+actID.to <- activityData$activity
+
+actIDsubt <- function(pattern, replacement, x, ...) {
+  for(i in 1:length(pattern))
+    x <- gsub(pattern[i], replacement[i], x, ...)
+    x
+}
+
+activity.train$activity <- actIDsubt(actID.from, actID.to, activity.train$activity)
+
+# train set subject ID, activity, mean and std
+
+train.dl.mn.st.suac.df <- data.frame(
+  subjectID = train.data.list.su.df$subjectID,
+  data_set = rep("training", 7352),
+  activity = activity.train$activity,
+  train.dl.mn.st.df[1:66])
+
+#########
 # Path to test data
 test.data.path <-
   list.files("/home/jawara/Workspace/DataAnalytics/Coursera-DS/003-projdata/UCI-HAR-Data/test",
@@ -50,144 +133,94 @@ test.data.path <-
 
 # test data path list
 test.data.list <- lapply(test.data.path, read.table)
-class(test.data.list)
 
-# Test set: 561 columns - see features.txt
-
+# Subject: that performed an Activity: 1 - 30 - subjectID
 # test set
+# testing labels: - activity name: 1 - 6 - activityID
 
-# Subject: that performed an Activity: 1 - 30
-
-# testing labels: - activity name: 1 - 6
+# Columns of interest
 
 # test data list data frame
-test.data.list.df <- as.data.frame(test.data.list)
+# test Subject
+test.data.list.su.df <- as.data.frame(test.data.list[1])
 
-# test data list data frame names
+# test activity code
+test.data.list.ac.df <- as.data.frame(test.data.list[3])
 
-# rename test data list columns 562 and 563
-names(test.data.list.df)[c(562,563)] <- c("tsubject", "tactivity")
+# test set
+test.data.list.df <- as.data.frame(test.data.list[2])
 
-### Features and Activities data
-featureData <- read.csv("../003-projdata/UCI-HAR-Data/features.csv", header = TRUE, sep = ";",
-                        stringsAsFactors = FALSE)
+###### test set - Features and Activities data
+### feature - columns - mean
 
-which(featureData$variable == "mean")
-which(featureData$variable == "std")
+mn <- subset(featureData, measurement == "mean" ,
+             select = c(domain, signal, measurement, direction))
+mn <- cbind(mnID = as.integer(rownames(mn)), mn)
 
-mn <- subset(featureData, variable == "mean" ,
-             select = signal)
+mn.names <- paste(mn$domain, mn$signal, mn$measurement, mn$direction, sep = "_")
+mn.names <- gsub("mean_", "mean", mn.names)
 
-st <- subset(featureData, variable == "std" ,
-             select = signal)
+### feature - columns - std
+st <- subset(featureData, measurement == "std" ,
+             c(domain, signal, measurement, direction))
+st <- cbind(stID = as.integer(rownames(st)), st)
 
-###### Activity labels
-activityFile <- read.table(
-  "/home/jawara/Workspace/DataAnalytics/Coursera-DS/003-projdata/UCI-HAR-Data/activity_labels.txt")
-activityData <- data.frame(actcode = c(1:6), activity = gsub("_", " ", activityFile$V2))
-activityData
+st.names <- paste(st$domain,st$signal,st$measurement, st$direction, sep = "_")
+st.names <- gsub("std_", "std", st.names)
 
-###### Subsetting training set df - mean, std, subject, activity
-train.dl.df.mn <- train.data.list.df[c(which(featureData$variable == "mean"))]
-train.dl.df.st <- train.data.list.df[c(which(featureData$variable == "std"))]
-train.dl.df.su <- train.data.list.df$trsubject
-train.dl.df.ac <- train.data.list.df$tractivity
+###### Subsetting/extracting test set df - mean, std, subject
+### subject - column
+names(test.data.list.su.df)[1] <- "subjectID"
 
-### column names
-# names(train.dl.df.mn)[562:563] <- c("trsubject", "tractivity")
-names(train.dl.df.mn)
+### activityID - column
+names(test.data.list.ac.df)[1] <- "activityID"
 
-# mean
-names.mn <- names(train.dl.df.mn)
+###### test set column names
+### mean - columns
+names(test.data.list.df)[mn$mnID] <- c(mn.names)
 
-# rename train columns for mean variables
-names(train.dl.df.mn)[1:33] <- mn$signal
+### std columns
+names(test.data.list.df)[st$stID] <- c(st.names)
 
-# std
-names.st <- names(train.dl.df.st)
+###### test set data frames
+mn.st <- c(mn$mnID, st$stID)
 
-# rename train columns for std variables
-names(train.dl.df.st)[1:33] <- st$signal
+# test set mean and std
+test.dl.mn.st.df <- test.data.list.df[c(mn.st)]
 
-# rename train columns for subject, activity code
-# and activity name variables
-train.dl.df.su <- train.data.list.df$trsubject
-train.dl.df.ac <- train.data.list.df$tractivity
-
-train.dl.su.ac <- data.frame(trsubject = train.dl.df.su, tractcode = train.dl.df.ac)
-
-
-# Activity code and names
-# activityData
-#
-#activityData.s <- subset(train.dl.su.ac,
-#                         train.dl.su.ac$tractcode %in% activityData$actcode,
-#                         select = tractcode)
-#activityData.s
-#str(activityData.s)
-#activityData.s$tractcode
-#activityData.s[activityData.s$tractcode == 2, ]
-
-#length()
-#activityData.sa <- subset(activityData,
-#                          activityData$actcode %in% train.dl.su.ac$tractcode,
-#                          select = activity)
-#activityData.sa
-
-
-###### test set df
-test.dl.df.mn <- test.data.list.df[c(which(featureData$variable == "mean"))]
-test.dl.df.st <- test.data.list.df[c(which(featureData$variable == "std"))]
-test.dl.df.su <- test.data.list.df$tsubject
-test.dl.df.ac <- test.data.list.df$tactivity
-
-# names for test data subject and activiity
-#names(test.data.list.df)[c(562,563)] <- c("tsubject", "tactivity")
-# mean
-names.mn <- names(test.dl.df.mn)
-
-# rename test columns for mean variables
-names(test.dl.df.mn)[1:33] <- mn$signal
-
-# std
-names.st <- names(test.dl.df.st)
-
-# rename test columns for std variables
-names(test.dl.df.st)[1:33] <- st$signal
-
-# rename test columns for subject and activities variables
-test.dl.df.su <- test.data.list.df$tsubject
-test.dl.df.ac <- test.data.list.df$tactivity
-
-test.dl.su.ac <- data.frame(tsubject = test.dl.df.su, tactivity = test.dl.df.ac)
-
-###### data frame with train, test, subjects, activities,
-train.dl.mnst.df <- data.frame(c(train.dl.df.mn, train.dl.df.st))
-
-train.dl.df.su <- train.data.list.df$trsubject
-train.dl.df.ac <- train.data.list.df$tractivity
-
-train.suac <- data.frame(trsubject = train.dl.df.su, tractivity = train.dl.df.ac)
+###### test - Activity labels
+### test Activity code and names
+# activity columns from activityID
+activity.test <- data.frame(activity = test.data.list.ac.df$activityID)
 
 ###
-test.dl.mnst.df <- data.frame(c(test.dl.df.mn, test.dl.df.st))
+actID.from <- activityData$activityID
+actID.to <- activityData$activity
 
-test.dl.df.su <- test.data.list.df$tsubject
-test.dl.df.ac <- test.data.list.df$tactivity
+actIDsubt <- function(pattern, replacement, x, ...) {
+  for(i in 1:length(pattern))
+    x <- gsub(pattern[i], replacement[i], x, ...)
+    x
+}
 
-test.suac <- data.frame(tsubject = test.dl.df.su, tactivity = test.dl.df.ac)
+activity.test$activity <- actIDsubt(actID.from, actID.to, activity.test$activity)
 
-### train set
-train.dl.mnst.suac.df <- data.frame(train.dl.mnst.df, train.suac)
+# test set subject ID, activity, mean and std
+test.dl.mn.st.suac.df <- data.frame(
+  subjectID = test.data.list.su.df$subjectID,
+  data_set = rep("test", 2947),
+  activity = activity.test$activity,
+  test.dl.mn.st.df[1:66])
 
-### test set
-test.dl.mnst.suac.df <- data.frame(test.dl.mnst.df, test.suac)
+############### Putting them together
+### train and test subject ID, activity ID, mean and sts data frames with column names
+# train.df <- train.dl.mn.st.suac.df
+# test.df <- test.dl.mn.st.suac.df
 
-######
-train.test.dl.mnst.suac <- merge(train.dl.mnst.suac.df, test.dl.mnst.suac.df,
-                                 by.x = "trsubject", by.y = "tsubject",
-                                 all = TRUE, sort = TRUE)
+### rbind()
+train.test.rbdf <- rbind(train.dl.mn.st.suac.df, test.dl.mn.st.suac.df)
 
-7352+2947
-
-### melt or ddply
+### semi Tidy data
+getwd()
+write.table(train.test.rbdf, "003-projdata/train-test.csv",
+            quote = FALSE, sep = ",", col.names = TRUE, row.name = FALSE)
