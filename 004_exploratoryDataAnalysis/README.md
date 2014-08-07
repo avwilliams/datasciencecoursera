@@ -82,7 +82,8 @@ png("https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plo
 with(hpc2d, plot(hpc2d$Date, hpc2d$Sub_metering_1, type = "l", xlab = "", ylab = "Energy sub metering"))
 with(hpc2d, lines(hpc2d$Date, hpc2d$Sub_metering_2, type = "l", col = "red"))
 with(hpc2d, lines(hpc2d$Date,hpc2d$Sub_metering_3, type = "l", col = "blue"))
-legend("topright", lty = c(1, 1, 1), col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+legend("topright", lty = c(1, 1, 1), col = c("black", "red", "blue"),
+        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 dev.off()
 
 ```
@@ -114,7 +115,8 @@ with(hpc2d, {
   plot(hpc2d$Date, hpc2d$Sub_metering_1, type = "l", xlab = "", ylab = "Energy sub metering")
   lines(hpc2d$Date, hpc2d$Sub_metering_2, type = "l", col = "red")
   lines(hpc2d$Date,hpc2d$Sub_metering_3, type = "l", col = "blue")
-  legend("topright", pch = 20, lty = c(1, 1, 1), col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  legend("topright", pch = 20, lty = c(1, 1, 1), col = c("black", "red", "blue"),
+        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
   plot(hpc2d$Date, hpc2d$Global_reactive_power,
        type = "l", xlab = "datetime", ylab = "Global_reactive_power")
