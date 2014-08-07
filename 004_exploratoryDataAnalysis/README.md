@@ -13,7 +13,7 @@ Extracted specific data for the assignment.
 
 We will only be using data from the dates 2007-02-01 and 2007-02-02.
 
-#### ## Making Plots
+#### Making Plots
 Examination of how household energy usage varies over a 2-day period in February, 2007.
 
 Task: Reconstruct plots, all of which were constructed using the
@@ -30,7 +30,7 @@ When finished should be four PNG files and four R code files.
 ```
 options(stringsAsFactors = FALSE)
 
-#Data for 2007-02-01 and 2007-02-02
+# Data for 2007-02-01 and 2007-02-02
 hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-projdata/HPC2d.csv",
                   sep = ";",
                   header = TRUE)
@@ -53,7 +53,7 @@ dev.off()
 library(lubridate)
 
 options(stringsAsFactors = FALSE)
-### Data for 2007-02-01 and 2007-02-02
+# Data for 2007-02-01 and 2007-02-02
 hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-projdata/HPC2d.csv",
                   sep = ";",
                   header = TRUE)
@@ -75,7 +75,7 @@ dev.off()
 library(lubridate)
 
 options(stringsAsFactors = FALSE)
-### Data for 2007-02-01 and 2007-02-02
+# Data for 2007-02-01 and 2007-02-02
 hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-projdata/HPC2d.csv",
                   sep = ";",
                   header = TRUE)
@@ -101,7 +101,7 @@ dev.off()
 library(lubridate)
 
 options(stringsAsFactors = FALSE)
-### Data for 2007-02-01 and 2007-02-02
+# Data for 2007-02-01 and 2007-02-02
 hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-projdata/HPC2d.csv",
                   sep = ";",
                   header = TRUE)
