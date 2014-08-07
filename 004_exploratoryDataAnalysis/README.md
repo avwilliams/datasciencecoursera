@@ -22,6 +22,8 @@ base plotting system.
 When finished should be four PNG files and four R code files.
 
 ## Plots
+### Plot 1
+
 ![Plot 1](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot1.png)
 
 #### R Code
@@ -42,6 +44,7 @@ hist(hpc2d$Global_active_power, col = "red",
 dev.off()
 ```
 
+### Plot 2
 ![Plot 2](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot2.png)
 
 #### R Code
@@ -63,6 +66,7 @@ plot(hpc2d$Date, hpc2d$Global_active_power,
 dev.off()
 ```
 
+### Plot 3
 ![Plot 3](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot3.png)
 
 ####R Code
@@ -88,6 +92,7 @@ dev.off()
 
 ```
 
+### Plot 4
 ![Plot 4](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot4.png)
 
 #### R Code
