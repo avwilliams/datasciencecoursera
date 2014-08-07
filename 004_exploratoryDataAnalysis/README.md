@@ -22,9 +22,9 @@ base plotting system.
 When finished should be four PNG files and four R code files.
 
 ## Plots
-![Plot 1](https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot1.png)
+![Plot 1](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot1.png)
 
-####R Code
+#### R Code
 ```
 options(stringsAsFactors = FALSE)
 
@@ -42,11 +42,11 @@ hist(hpc2d$Global_active_power, col = "red",
 dev.off()
 ```
 
-![Plot 2](https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot2.png)
+![Plot 2](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot2.png)
 
-####R Code
+#### R Code
 ```
-### Library
+# Library
 library(lubridate)
 
 options(stringsAsFactors = FALSE)
@@ -55,7 +55,7 @@ hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-pr
                   sep = ";",
                   header = TRUE)
 
-###### Plot 2
+# Plot 2
 png("https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot2.png",
     width = 480, height = 480, type = "Xlib")
 plot(hpc2d$Date, hpc2d$Global_active_power,
@@ -63,11 +63,11 @@ plot(hpc2d$Date, hpc2d$Global_active_power,
 dev.off()
 ```
 
-![Plot 3](https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot3.png)
+![Plot 3](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot3.png)
 
 ####R Code
 ```
-### Library
+# Library
 library(lubridate)
 
 options(stringsAsFactors = FALSE)
@@ -76,7 +76,7 @@ hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-pr
                   sep = ";",
                   header = TRUE)
 
-###### Plot 3
+# Plot 3
 png("https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot3.png",
     width = 480, height = 480, type = "Xlib")
 with(hpc2d, plot(hpc2d$Date, hpc2d$Sub_metering_1, type = "l", xlab = "", ylab = "Energy sub metering"))
@@ -88,9 +88,9 @@ dev.off()
 
 ```
 
-![Plot 4](https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot4.png)
+![Plot 4](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot4.png)
 
-####R Code
+#### R Code
 ```
 ### Library
 library(lubridate)
@@ -101,7 +101,7 @@ hpc2d <- read.csv("https://github.com/avwilliams/datasciencecoursers/data/004-pr
                   sep = ";",
                   header = TRUE)
 
-###### Plot 4
+# Plot 4
 png("https://github.com/avwilliams/datasciencecoursera/graphs/004-projgraphs/plot1.png",
     width = 480, height = 480, type = "Xlib")
 par(mfrow = c(2, 2), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
