@@ -9,9 +9,17 @@ with a one-minute sampling rate over a period of almost 4 years.
 Different electrical quantities and some sub-metering values are available.
 
 #### Loading the data
-Extracted specific data for the assignment.
-
 We will only be using data from the dates 2007-02-01 and 2007-02-02.
+
+Extraction specific data for the assignment using command line tools.
+```
+# range of data of interest
+grep "^[1]/2/2007" HPC.txt | less
+grep "^[2]/2/2007" HPC.txt | less
+
+# Data file HPC2d: HPC for 2 days.
+grep "^[12]/2/2007" HPC.txt >> HPC2d.txt
+```
 
 #### Making Plots
 Examination of how household energy usage varies over a 2-day period in February, 2007.
@@ -26,7 +34,7 @@ When finished should be four PNG files and four R code files.
 
 ![Plot 1](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot1.png)
 
-#### R Code
+#### Code: [plot1.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot1.R)
 ```
 options(stringsAsFactors = FALSE)
 
@@ -47,7 +55,7 @@ dev.off()
 ### Plot 2
 ![Plot 2](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot2.png)
 
-#### R Code
+#### Code: [plot2.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot2.R)
 ```
 # Library
 library(lubridate)
@@ -69,7 +77,7 @@ dev.off()
 ### Plot 3
 ![Plot 3](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot3.png)
 
-####R Code
+#### Code: [plo3.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot3.R)
 ```
 # Library
 library(lubridate)
@@ -95,7 +103,7 @@ dev.off()
 ### Plot 4
 ![Plot 4](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot4.png)
 
-#### R Code
+#### Code: [plot4.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot4.R)
 ```
 ### Library
 library(lubridate)
