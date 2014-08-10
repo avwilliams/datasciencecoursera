@@ -1,6 +1,6 @@
-## Exploratory Data Analysys
+## Exploratory Data Analysis
+by Roger D. Peng, PhD, Jeff Leek, PhD, Brian Caffo, PhD
 
-#### Exploratory Data Analysis:
 This is the fourth course in the Data Science Specialization.
 
 Exploratory data analysis (EDA) is a key element of data science because
