@@ -34,7 +34,7 @@ When finished should be four PNG files and four R code files.
 
 ![Plot 1](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot1.png)
 
-#### Code: [plot1.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot1.R)
+#### Code: [plot1.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/004_proj_01/plot1.R)
 ```
 options(stringsAsFactors = FALSE)
 
@@ -55,7 +55,7 @@ dev.off()
 ### Plot 2
 ![Plot 2](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot2.png)
 
-#### Code: [plot2.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot2.R)
+#### Code: [plot2.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/004_proj_01/plot2.R)
 ```
 # Library
 library(lubridate)
@@ -77,7 +77,7 @@ dev.off()
 ### Plot 3
 ![Plot 3](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot3.png)
 
-#### Code: [plo3.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot3.R)
+#### Code: [plo3.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/004_proj_01/plot3.R)
 ```
 # Library
 library(lubridate)
@@ -103,7 +103,7 @@ dev.off()
 ### Plot 4
 ![Plot 4](https://github.com/avwilliams/datasciencecoursera/blob/master/graphs/004-projgraphs/plot4.png)
 
-#### Code: [plot4.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/plot4.R)
+#### Code: [plot4.R](https://github.com/avwilliams/datasciencecoursera/blob/master/004_exploratoryDataAnalysis/004_proj_01/plot4.R)
 ```
 ### Library
 library(lubridate)
